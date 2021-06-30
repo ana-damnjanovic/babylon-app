@@ -15,7 +15,7 @@ import { WaterMaterial } from "@babylonjs/materials/water";
 import "@babylonjs/core/Meshes/meshBuilder";
 
 // Get the canvas element from the DOM.
-const canvas = document.getElementById("renderCanvas");
+const canvas = document.getElementById("renderCanvas") as HTMLCanvasElement;
 
 // Associate a Babylon Engine to it.
 const engine = new Engine(canvas);
