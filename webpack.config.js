@@ -1,11 +1,9 @@
 const path = require("path");
-const fs = require("fs");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
-const appDirectory = fs.realpathSync(process.cwd());
 
 module.exports = {
-    entry: path.resolve(appDirectory, "src/index.ts"),
+    entry: "./src/index.ts",
     output: {
         filename: 'main.js',
         path: path.resolve(__dirname, 'dist')
@@ -13,19 +11,27 @@ module.exports = {
     resolve: {
         extensions: [".tsx", ".ts", ".js"],
     },
+    devServer: {
+        host: "0.0.0.0",
+        port: 8080, //port that we're using for local host (localhost:8080)
+        disableHostCheck: true,
+        contentBase: path.resolve(__dirname, "public"), //tells webpack to serve from the public folder
+        publicPath: "/",
+        hot: true,
+    },
     module: {
         rules: [
             {
                 test: /\.tsx?$/,
                 loader: "ts-loader",
-                exclude: /node_modules/
+                exclude: /node_modules/,
             },
         ],
     },
     plugins: [
         new HtmlWebpackPlugin({
             inject: true,
-            template: path.resolve(appDirectory, "dist/index.html"),
+            template: path.resolve(__dirname, "public/index.html"),
         }),
         new CleanWebpackPlugin(),
     ],
