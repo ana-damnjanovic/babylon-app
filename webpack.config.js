@@ -1,12 +1,10 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
-const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 
 module.exports = {
     entry: "./src/index.ts",
     output: {
         filename: 'main.js',
-        //path: path.resolve(__dirname, 'dist')
     },
     resolve: {
         extensions: [".tsx", ".ts", ".js"],
@@ -33,7 +31,6 @@ module.exports = {
             inject: true,
             template: path.resolve(__dirname, "public/index.html"),
         }),
-        new CleanWebpackPlugin(),
     ],
     mode: "development",
 };
