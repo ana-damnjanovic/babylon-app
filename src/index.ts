@@ -1,4 +1,6 @@
 import * as BABYLON from "@babylonjs/core";
+import 'babylonjs-loaders';
+import "@babylonjs/loaders/glTF";
 import { Engine } from "@babylonjs/core/Engines/engine";
 import { Scene } from "@babylonjs/core/scene";
 import { Vector3 } from "@babylonjs/core/Maths/math";
@@ -67,10 +69,8 @@ ground.position.y = -1;
 // Affect a material
 ground.material = material;
 
+
 var water = Mesh.CreateGround("ground", 512, 512, 32, scene);
-//water.position.y = -0.5;
-//const abstractPlane = Plane.FromPositionAndNormal(new Vector3(0, 0, 0), new Vector3(0, 1, 0));
-//var water = MeshBuilder.CreatePlane("plane", {sourcePlane: abstractPlane, sideOrientation: BABYLON.Mesh.DOUBLESIDE});
 
 var waterMaterial = new WaterMaterial("water_material", scene);
 waterMaterial.bumpTexture = new BABYLON.Texture("./images/waterbump.png", scene); // Set the bump texture
@@ -86,7 +86,21 @@ waterMaterial.addToRenderList(sphere);
 waterMaterial.addToRenderList(skybox);
 waterMaterial.addToRenderList(ground);
 
+BABYLON.SceneLoader.ImportMesh("", "./models/", "fish.glb", scene, function (meshes) {          
+
+    var fish = meshes[0];
+    fish.scaling = new BABYLON.Vector3(0.25, 0.25, 0.25);
+    fish.position.y = -8;
+    fish.position.z = 5;
+    for (var i = 0; i < meshes.length; i++){
+        waterMaterial.addToRenderList(meshes[i]);
+    }
+   
+});
+
 water.material = waterMaterial;
+
+
 
 // Render every frame
 engine.runRenderLoop(() => {
