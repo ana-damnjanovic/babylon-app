@@ -5,8 +5,7 @@
         "moduleResolution": "node",
         "types": [
             "babylonjs",
-            "babylonjs-loaders",
-            ""
+            "babylonjs-loaders"
         ],
     },
 }
